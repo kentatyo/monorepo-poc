@@ -1,0 +1,174 @@
+openapi: 3.0.0
+info:
+  title: 資料請求API
+  version: 1.0.0
+  description: 資料請求を管理するためのAPI
+
+servers:
+  - url: https://api.example.com/v1
+
+paths:
+  /selected-documents:
+    get:
+      summary: 選択された資料を取得
+      description: ユーザーが選択した資料を取得します
+      parameters:
+        - in: query
+          name: userId
+          schema:
+            type: string
+          required: true
+          description: ユーザーのID
+      responses:
+        '200':
+          description: 正常なレスポンス
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SelectedDocuments'
+              example:
+                userId: 'user123'
+                items:
+                  - id: 'doc1'
+                    title: '会社案内'
+                    description: '当社の概要と事業内容を紹介する資料です'
+                  - id: 'doc2'
+                    title: '製品カタログ'
+                    description: '当社の主力製品をまとめたカタログです'
+        '400':
+          description: 不正なリクエスト
+        '404':
+          description: ユーザーが見つかりません
+        '500':
+          description: サーバー内部エラー
+
+  /document-requests:
+    post:
+      summary: 資料請求を登録
+      description: ユーザーの新しい資料請求を登録します
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DocumentRequest'
+            example:
+              userId: 'user123'
+              personalInfo:
+                name: '山田太郎'
+                email: 'yamada@example.com'
+                phone: '090-1234-5678'
+                address: '東京都千代田区1-1-1'
+              selectedDocuments: ['doc1', 'doc2']
+      responses:
+        '201':
+          description: リクエストが正常に作成されました
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentRequestResponse'
+              example:
+                requestId: 'req456'
+                status: 'pending'
+                createdAt: '2023-05-20T09:00:00Z'
+        '400':
+          description: 不正なリクエスト
+        '500':
+          description: サーバー内部エラー
+
+components:
+  schemas:
+    Document:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+      example:
+        id: 'doc1'
+        title: '会社案内'
+        description: '当社の概要と事業内容を紹介する資料です'
+
+    SelectedDocuments:
+      type: object
+      properties:
+        userId:
+          type: string
+        documents:
+          type: array
+          items:
+            $ref: '#/components/schemas/Document'
+      example:
+        userId: 'user123'
+        documents:
+          - id: 'doc1'
+            title: '会社案内'
+            description: '当社の概要と事業内容を紹介する資料です'
+          - id: 'doc2'
+            title: '製品カタログ'
+            description: '当社の主力製品をまとめたカタログです'
+
+    PersonalInfo:
+      type: object
+      properties:
+        name:
+          type: string
+          description: 氏名
+        email:
+          type: string
+          description: メールアドレス
+        phone:
+          type: string
+          description: 電話番号
+        address:
+          type: string
+          description: 住所
+      example:
+        name: '山田太郎'
+        email: 'yamada@example.com'
+        phone: '090-1234-5678'
+        address: '東京都千代田区1-1-1'
+
+    DocumentRequest:
+      type: object
+      properties:
+        userId:
+          type: string
+          description: ユーザーID
+        personalInfo:
+          $ref: '#/components/schemas/PersonalInfo'
+        selectedDocuments:
+          type: array
+          items:
+            type: string
+          description: 選択された資料のIDの配列
+      example:
+        userId: 'user123'
+        personalInfo:
+          name: '山田太郎'
+          email: 'yamada@example.com'
+          phone: '090-1234-5678'
+          address: '東京都千代田区1-1-1'
+        selectedDocuments: ['doc1', 'doc2']
+
+    DocumentRequestResponse:
+      type: object
+      properties:
+        requestId:
+          type: string
+          description: 請求ID
+        status:
+          type: string
+          enum: [pending, processed, completed]
+          description: 状態（保留中、処理中、完了）
+        createdAt:
+          type: string
+          format: date-time
+          description: 作成日時
+      example:
+        requestId: 'req456'
+        status: 'pending'
+        createdAt: '2023-05-20T09:00:00Z'

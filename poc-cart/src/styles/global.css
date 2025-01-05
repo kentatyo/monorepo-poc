@@ -1,0 +1,6 @@
+body {
+  max-width: 1200px; /* ここで最大横幅を設定 */
+  margin: 0 auto; /* 中央揃え */
+  padding: 20px; /* 両端に少し余白を追加 */
+  box-sizing: border-box;
+}
