@@ -1,41 +1,124 @@
 # poc-cart
 
-This template should help get you started developing with Vue 3 in Vite.
+## ディレクトリ構成
+```bash
+│  .gitignore                           # プロジェクト全体の.gitignore
+│  package.json                         # ルートpackage.json（workspacesの設定を含む）
+│  README.md                            # プロジェクト全体の説明
+│
+└─poc-cart
+    │  .editorconfig
+    │  .eslintrc-auto-import.json
+    │  .gitignore
+    │  .prettierrc.json
+    │  auto-imports.d.ts
+    │  components.d.ts
+    │  eslint.config.js
+    │  index.html
+    │  jsconfig.json
+    │  package.json
+    │  README.md
+    │  typed-router.d.ts
+    │  vite.config.js
+    │  vitest.config.js
+    │
+    ├─.storybook
+    │      main.js
+    │      preview.js
+    │
+    ├─.vscode
+    │      extensions.json
+    │
+    ├─config
+    │      .env
+    │
+    ├─doc
+    │      architechture.drawio
+    │      open-api.yaml
+    │
+    ├─public
+    │      favicon.ico
+    │
+    └─src
+        │  App.vue
+        │  main.js
+        │
+        ├─components
+        │      PageTitle.vue                # 複数画面で呼ばれるコンポーネントファイル
+        │
+        ├─plugins
+        │      vuetify.js
+        │
+        ├─router
+        │      index.js
+        │
+        ├─stores
+        │      index.js
+        │      useCartStore.js
+        │      useUserStore.js
+        │
+        ├─stories
+        │      Configure.mdx
+        │      PageTitle.stories.js
+        │
+        ├─styles                            # アプリケーション全体で適用されるスタイルを
+        │      global.css
+        │
+        ├─types                             # アプリケーション内で利用する型を定義
+        │      documentCart.js
+        │
+        ├─utils                             # 複数コンポーネントから利用されるjs処理
+        │      validationRules.js           ## 各処理の性質に応じて適切にファイルを作成 
+        │      validationRules.test.js      ## 処理とテストコードのファイルは1:1で作成
+        │
+        └─views                             # 各画面のメインコンポーネントファイル
+            ├─CartConfirm                   ## 各画面ごとにディレクトリを作成
+            │      index.vue                ## 各画面
+            │
+            ├─CartSelect
+            │      index.vue
+            │
+            └─CartSubmit
+                    index.vue
 
-## Recommended IDE Setup
+```
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## 準備
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
+利用するライブラリのインストール
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### ローカル開発環境
+
+アプリケーションの立ち上げ
 
 ```sh
+cd ./poc-cart
 npm run dev
 ```
 
-### Compile and Minify for Production
+モックサーバの立ち上げ
+
+```sh
+cd ./poc-cart
+prism mock ./doc/open-api.yaml
+```
+
+### サーバ環境
+
+アプリケーションのビルド
 
 ```sh
 npm run build
 ```
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+### テストコード
+
+テストコードの実行
 
 ```sh
 npm run test:unit
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
 ```

@@ -1,14 +1,12 @@
-// Plugins
-import { registerPlugins } from '@/plugins';
-
-// Components
 import App from './App.vue';
-
-// Composables
 import { createApp } from 'vue';
+import router from '@/router';
+import pinia from '@/stores';
+import vuetify from '@/plugins/vuetify';
 
 const app = createApp(App);
 
-registerPlugins(app);
-
+app.use(vuetify);
+app.use(router);
+app.use(pinia);
 app.mount('#app');

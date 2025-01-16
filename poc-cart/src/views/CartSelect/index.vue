@@ -22,7 +22,7 @@ async function getCartInfomation() {
     // storeにデータがあるかないかを判断
     if (items.value === null) {
       const response = await axios.get(
-        'http://localhost:8080/selected-documents?userId=iste',
+        'http://localhost:4010/selected-documents?userId=iste',
       );
       cartStore.setItems(response.data.items);
     }

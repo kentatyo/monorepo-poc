@@ -1,7 +1,7 @@
+import { createRouter, createWebHistory } from 'vue-router';
 import CartConfirm from '@/views/CartConfirm/index.vue';
 import CartSelect from '@/views/CartSelect/index.vue';
 import CartSubmit from '@/views/CartSubmit/index.vue';
-import { createRouter, createWebHistory } from 'vue-router';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.VITE_BASE_URL),
