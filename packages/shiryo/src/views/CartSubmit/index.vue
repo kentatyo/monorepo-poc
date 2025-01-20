@@ -1,7 +1,7 @@
 <script setup>
 import PageTitle from '@/components/PageTitle.vue';
 import { useUserStore } from '@/stores/useUserStore';
-import { required, validatePhoneNumber } from '@/utils/validationRules';
+import { required, validatePhoneNumber } from '@common/utils/validationRules';
 import { storeToRefs } from 'pinia';
 import { ref } from 'vue';
 const userStore = useUserStore();

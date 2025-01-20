@@ -10,7 +10,7 @@
   "license": "ISC",
   "description": "",
   "workspaces": [
-    "monorepo-poc/poc-cart",
-    "poc-cart"
+    "monorepo-poc/shiryo",
+    "shiryo"
   ]
 }
